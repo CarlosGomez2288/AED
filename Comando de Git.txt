@@ -1,0 +1,5 @@
+git reset -hard codigo de id -> sirve para rataurar el archivo 
+git log --online -> sirve para ver todos los commit
+git add . -> sirve para add a todos los archivo
+git commit -am -> hace un commit y un add al mismo tiempo
+git commit -m "texto" --amend -> para modificar sin que abrir VIM
