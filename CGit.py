@@ -7,3 +7,5 @@ git remote add origin urr -> para concectar el repositor remoto
 git push -u origin rama -> para subir los cambios al repositor remoto
 git pull -> trae los cambios realizados desde GitHub o respositor remoto al repositor local
 git tag [nombre-version] -m "comentario" -> sirve para poner una version al proyecto
+git push --tag -> sirve para subir  los tag en el repositor remoto 
+git clone url -> para clonar repositor remoto a local
