@@ -5,3 +5,4 @@ git commit -am -> hace un commit y un add al mismo tiempo
 git commit -m "texto" --amend -> para modificar sin que abrir VIM
 git remote add origin urr -> para concectar el repositor remoto
 git push -u origin rama -> para subir los cambios al repositor remoto
+git pull -> atrae los cambios realizados desde GitHub
