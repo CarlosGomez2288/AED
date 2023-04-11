@@ -1,11 +1,14 @@
 accion 1.1.22 es
     ambiente
         num, i:Entero;
-	     primo:Logico;
-	    primo:= Verdadero;
+	    primo:Logico;
+	    
     proceso
-	    num:= 7;
-        
+
+        primo:= Verdadero;
+		Esc("ingresar numero ");
+		leer (num)
+		
         para i<- 2 Hasta raiz(num) Hacer
             si num mod i = 0 Entonces
                 primo:= Falso;
