@@ -1,30 +1,38 @@
-accion 1.1.28 es
+accion 1.1.18 es
     ambiente
-        dig1, dig2, dig3, sum, i:Entero
-    proceso
-        para i:= 100 hasta 1000 hacer
-            dig1:= i dv 100;
-            dig2:= (i div 10) mod 10;
-            dig3:= i mod 10;
+        F, G, resto, resu, cont:Entero
 
-            sum:= dig1^3 + dig2^3 + dig3^3;
-            si ( sum = i) Entonces
-                Escribir i;
-            FinSi
+    proceso
+
+    Esc("Ingresar dos valores enteros");
+    leer (F, G);
+    resu:= F;
+    cont:= 0;
+
+    Repetir
+        resu:= resu -G;
+        resto:= resu
+        cont:=cont + 1;
+    hasta que (resu < G)
+
+    Esc("El resultado del cociente es: ", resu);
+    Esc("El resto es: ", resto)
 finaccion
-# codigo PSINT
+
+# CODIGO DE PSINT
 Algoritmo sin_titulo
-	Definir  dig1, dig2,dig3, i, sum Como Entero;
+	definir F, G, resu, resto ,cont Como Entero;
+	Escribir "Ingresar dos valores enteros";
+	leer F, G;
+	cont:= 0;
+	resu:= F;
 	
-	para i <- 100 hasta 1000  Hacer
-		dig1:= trunc(i / 100);
-		dig2:= trunc(i / 10) mod 10;
-		dig3:= i mod 10;
-		sum:= dig1^3 + dig2^3 + dig3^3;
-		si ( sum = i) Entonces
-			Escribir i;
-		FinSi
-		
-	FinPara
+	Repetir
+		resu:= resu - G;
+		resto:= resu;
+		cont:= cont + 1;
+	Hasta Que resu < G;
 	
+	Escribir "Resultado: ", cont;
+	Escribir "Resto: ",resto;
 FinAlgoritmo
