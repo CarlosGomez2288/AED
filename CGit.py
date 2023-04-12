@@ -12,3 +12,4 @@ git clone url -> para clonar repositor remoto a local
 git branch [nombre] -> sirve Para crear una rama
 git branch -> sirve para ver el listado de ramas hechas
 git checkout [nombre] -> Sirve para cambiarme de ramas 
+git merge [nombre de rama] -> sirve para funcionar la rama con la master
