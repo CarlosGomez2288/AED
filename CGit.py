@@ -13,3 +13,4 @@ git branch [nombre] -> sirve Para crear una rama
 git branch -> sirve para ver el listado de ramas hechas
 git checkout [nombre] -> Sirve para cambiarme de ramas 
 git merge [nombre de rama] -> sirve para funcionar la rama con la master
+git branch -d [nombre de la rama ] -> sirve para borrar las ramas 
