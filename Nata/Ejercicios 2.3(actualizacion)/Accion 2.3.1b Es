@@ -1,0 +1,59 @@
+Accion 2.3.1b Es
+Ambiente
+	facturas=registro
+		Nro
+
+
+Proceso 
+	Abrir e/(Facturas); Leer (Facturas, reg); 
+	Abrir e/ (Clientes);
+	Esc ("NRO CLIENTE|NOMBRE|TOTAL FACTURADO|CANTIDAD DE FACTURAS")
+	Mientras NFDA (Facturas) hacer 
+		regc.nrocliente:= regf.nrocliente;
+		aux:=reg.clave.nrocliente; 
+		LEER (Clientes, regc);
+		Si Existe entonces
+			totalf:=0
+			cant:=0
+			Mientras (reg.nrocliente = aux.nrocliente) y NFDA(Facturas) Hacer
+				totalf:=totalf+1
+				cant:=cant+1
+				LEER (Facturas,reg);
+			FinMientras
+			ESC (reg.nrocliente, regc.nombreyapell, regf.nrofact)
+		sino 
+			ESC ("El cliente no esta registrado")
+		Finsi
+		LEER (Facturas, regf);		
+	FinMientras 
+	Cerrar(Facturas);
+	Cerrar (Clientes);
+FinAccion
+
+o
+
+Proceso 
+	Abrir e/(Facturas); Leer (Facturas, reg); 
+	Abrir e/ (Clientes);
+	Esc ("NRO CLIENTE|NOMBRE|TOTAL FACTURADO|CANTIDAD DE FACTURAS")
+	Mientras NFDA (Facturas) hacer 
+		regc.nrocliente:= regf.nrocliente;
+		aux:=reg.clave.nrocliente; 
+		LEER (Clientes, regc);
+		totalf:=0
+		cant:=0
+		Mientras (reg.nrocliente = aux.nrocliente) y NFDA(Facturas) Hacer
+			totalf:=totalf+1
+			cant:=cant+1
+			LEER (Facturas,reg);
+		FinMientras
+		reg.nrocliente:=aux
+		LEER (Facturas,reg);
+		Si Existe entonces
+			ESC (reg.nrocliente, regc.nombreyapell, regf.nrofact)
+		Finsi
+		LEER (Facturas, regf);		
+	FinMientras 
+	Cerrar(Facturas);
+	Cerrar (Clientes);
+FinAccion

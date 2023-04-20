@@ -1,0 +1,54 @@
+Accion 3.23 Es
+Ambiente
+
+Proceso
+	Para k:=1 hasta 50 hacer
+		Para j:=1 hasta 7 hacer
+			Prom[k]:=0
+		FinPara
+	FinPara
+
+	Para k:=1 hasta 50 hacer
+		tmax:=P[1,1,k]
+		dmax:=1
+		lmax:=1
+
+		tmin:=P[i,j,k]
+		dmin:=1
+		lmin:=1
+
+		Para j:=1 hasta 7 hacer
+			Para i:=1 hasta 4 hacer
+				Si P[i,j,k] > tmax entonces
+					tmax:= P[i,j,k]
+					dmax:= j
+					lmax:= i
+				Sino
+					Si P[i,j,k] < tmin Entonces
+						tmin:= P[i,j,k]
+						dmin:= j
+						lmin:= i
+					FinSi
+				FinSi
+
+				Prom[k,j]:= Prom[k,j] + P[i,j,k]
+
+			FinPara
+
+			Prom[k,j]:= Prom[k,j] /4
+
+		FinPara
+
+		Esc("Para la temperatura maxima es:",tmax,"la lectura",lmax,"del dia",diamax)
+		Esc("Para la temperatura minima es:",tmin,"la lectura",lmin,"del dia",dmin)
+
+		Esc("El promedio de lecturas por día es:",Prom[k,j])
+	FinPara
+
+FinAccion
+
+
+
+
+
+

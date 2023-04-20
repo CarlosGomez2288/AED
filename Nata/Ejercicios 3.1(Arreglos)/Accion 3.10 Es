@@ -1,0 +1,37 @@
+Accion 3.10 Es
+Ambiente
+	A: Arreglo de [1..50] de entero
+	x: entero
+
+	Shuvia=registro
+		CodLocalidad: N(2)
+		CantLluv: N(10)
+	FinRegistro
+
+Proceso
+	Esc("Ingrese una localidad especifica que desea")
+	Leer(x)
+
+	izq:=1
+	der:=50
+	cen:=(izq+der) DIV 2
+
+	Mientras (izq < der) y (A[cen] <> x)
+		Si (A[cen] > x) entonces
+			der:=der-1
+		Sino
+			izq:=izq+1
+		FinSi
+		cen:=(izq+der) DIV 2
+	FinMientras
+
+	Si A[cen] = x Entonces
+		Esc("Para la localidad",x,"cayó una cantidad de lluvia anual de:",A[x].CantLluv)
+	Sino
+		Esc("No se encontró la localidad especifica")
+	FinSi
+FinAccion
+
+
+		
+

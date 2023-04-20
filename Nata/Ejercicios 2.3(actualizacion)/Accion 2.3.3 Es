@@ -1,0 +1,53 @@
+Accion 2.3.3 Es
+Ambiente
+	
+	Peaje=registro
+		Clave=registro
+			Patente: N(6)
+			Fecha: N(8)
+		finregistro
+		UltHora: n(4)
+		Costo: N(3,2)
+	Finregistro
+
+	PEAJE: archivo indexado de Peaje ordenado por Clave
+	reg: Peaje
+	Cat={"1","2","3","4"}
+	Dato={"SI","NO"}
+
+Proceso
+	ABRIR E/S(Peaje)
+	Esc("Desea ingresar una patente? SI/NO")
+	Leer(Rta)
+	Mientras NFDA(PEAJE) hacer
+		Si (Rta = "SI") Entonces
+			Esc("Ingrese la patente")
+			Leer(dato)
+			reg.Clave.Patente:=Dato
+			reg.Clave.Fecha:= fechaactual()
+			Leer(PEAJE,reg)
+			Si (no existe) Entonces
+				Esc("No se registro la patente")
+				Esc("Ingrese la categoria del vehículo");Leer(Cat)
+				Según Categoria Entonces
+					="1":reg.Costo:=1.20
+					="2":reg.Costo:=2.50
+					="3":reg.Costo:=4.00
+					="4":reg.Costo:=5.00
+				FinRegistro
+				reg.UltHora:= horasistema()
+				Grabar(PEAJE,reg)
+			Sino
+				Esc("La patente ya se encuentra registrada")
+				reg.UltHora:= horasistema()
+				Regrabar(PEAJE,reg)
+			FinSi
+		FinSi
+		Esc("Desea ingresar otra patente? SI/NO"),Leer(dato)
+	FinMientras
+	Cerrar(PEAJE)
+FinAccion
+
+
+
+

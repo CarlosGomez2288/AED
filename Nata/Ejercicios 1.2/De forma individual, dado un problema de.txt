@@ -1,0 +1,76 @@
+De forma individual, dado un problema determinado que lo ideen ustedes,
+definir una Función y un Procedimiento que se podrían usar para dar solución.
+
+No se permitirán entregas de trabajos iguales. Se desaprobarán las personas que detectemos hayan copiado funciones/procedimientos entre sì.
+
+Te dejamos un ejemplo:
+
+Problema: Twitter ha detectado muchos accesos no autorizados a cuentas de más de 1 millón de followers.
+
+Función: Dada una cuenta y los accesos no autorizados detectados en el mes de Marzo/2021, determinar su nivel de criticidad teniendo en cuenta:
+
+- Si tuvo más de 100 accesos no autorizados en el mes, nivel: GRAVE
+
+- Si tuvo más de 35 accesos no autorizados en el mes, nivel: OBSERVABLE
+
+- Si tuvo 35 o menos accesos no autorizados en el mes, nivel: LEVE
+
+Funcion criticidad(accesos:entero):alfanumerico ES
+
+      Segun accesos hacer
+
+       >100: criticidad:="GRAVE"
+       >35: criticidad:="OBSERVABLE"
+
+       <=35: criticidad:="LEVE"
+
+      Fin Segun
+
+FinFuncion
+
+Procedimiento: Mostrar nivel de criticidad dada una cuenta
+
+PROCEDIMIENTO MuestraCriticidad(cuenta, criticidad:alfanumerico) ES
+
+       Esc("La cuenta "; cuenta, " tiene nivel de criticidad ", criticidad)
+
+FinProcedimiento
+
+
+
+Se decidio realizar una encuesta a usuarios de intagram para que decidieran un puntaje de 5 estrellas a 10000 personas, para así comprobar que tanto les gusta/ó la aplicacion a esos usuarios, entonces:
+Deberá obtener un porcentaje de usuarios "Contentos" si la cantidad de entrellas es más de 3
+Tambien debera obtener un porcentaje si 3 estrellas si los usuarios "No Contentos". 
+Al final mostrar por pantalla los resultados
+
+Accion Intagram Es
+Ambiente
+    ContC,ContNC,Estrellas:entero
+    TotalC,TotalNC:real
+    Función Puntaje (Calificación:entero,Contentos:entero,NoContentos:entero):entero
+        Si Calificación >3 y <=5 Entonces
+            Contentos:=Contentos+1
+        Sino
+            NoContentos:=NoContentos+1
+        FinSi
+    FinFunción
+
+    Procedimiento Totales(TC:real,TNC:real)
+        TotalC:=(ContC*100)/10000
+        TotalNC:=(ContNC*100)/10000
+    FinProcedimiento
+         
+    FinFunción
+Proceso
+    Escribir("Ingrese una cierta cantidad de estrellas para su calificación de la aplicación")
+    Leer(Estrellas)
+    Cont:=0;ContC:=0;ContNC:=0
+    Para i:=1 hasta 10000 Hacer
+        Puntaje(Estrellas,ContC,ContNC)
+        Cont:=Cont+1
+    FinPara
+    Totales(TotalC,TotalNC)
+    Escribir("El porcentaje de personas contentas con la aplicación es:",TotalC)
+    Escribir("Y el porcentaje de personas no contentas con la aplicación es:",TotalNC)
+FinAcción
+        

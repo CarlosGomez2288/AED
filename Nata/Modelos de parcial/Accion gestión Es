@@ -1,0 +1,21 @@
+Accion gestión Es
+Ambiente
+	Calidad=Registro
+		CodProducto: Numerico
+		TipoProdcuto: 1..150
+		ValorMedición1: Numerico
+		ValorMedición2: Numerico
+		ValorMedición3: Numerico
+	FinRegistro
+	Arch,ArchSal: archivo de Calidad
+	reg,sal: Calidad
+	
+
+
+Proceso
+	Abrir E/(Arch)
+	Leer()
+	Abrir S/(ArchSal)
+
+
+FinAccion

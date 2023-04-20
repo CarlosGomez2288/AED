@@ -1,0 +1,16 @@
+Accion 3.17 Es
+Ambiente
+	pelis=registro
+		Titulo
+		Categoria
+		NombreDire
+		Categoria
+		Cantidad
+	FinRegis
+
+Proceso
+	Para i:=1 hasta 10 hacer
+		Para i:=1 hasta 200
+		 
+
+

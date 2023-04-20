@@ -1,0 +1,43 @@
+Accion Ej Es()
+Ambiente
+    Funcion Pmay(d,n:entero):booleano Es
+        Si n<10 entonces
+            Si n=d entonces
+                Pmay:=True
+            Sino
+                Pmay:=Falso
+            FinSi
+        Sino
+            Pmay:=Pmay(d,n DIV 10)
+        FinSi
+    FinFuncion
+Proceso
+    Esc("Ingrese 2 parametros");Leer(d,n)
+    x:=Pmay(d,n)
+    Esc("El resultado de la funcion es:",x)
+FinAccion
+
+
+
+Prefijo(p,q){true, si p=q//caso base
+             falso, si q<p//caso base
+             prefijo(p,q DIV 10), si q>p//caso recursivo}
+Accion Ej Es
+Ambiente
+    Funcion Prefijo(p,q:entero):booleano Es
+        Si p = q entonces
+            Prefijo:=True
+        Sino
+            Si q < p entonces
+                Prefijo:=Falso
+            Sino  entonces
+                Prefijo:=Prefijo(p,q DIV 10)
+            FinSi
+        FinSi
+    FinFuncion
+    x: booleano
+Proceso
+    Esc("Ingrese 2 numeros naturales");Leer(p,q)
+    x:=Prefijo(p,q)
+    Esc("El resultado de la funcion es:",x)
+FinAccion

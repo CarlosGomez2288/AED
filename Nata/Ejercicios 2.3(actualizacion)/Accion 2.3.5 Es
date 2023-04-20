@@ -1,0 +1,96 @@
+Accion 2.3.5 Es
+Ambiente
+	cabecera=registro
+		Clave=registro
+			DNI: N(8)
+			Periodo: N(6)
+			NroRecibo: N(15)
+		Finregistro
+		ApyNom: AN(50)
+		Empresa: AN(50)
+	Finregistro
+
+	recibo=registro
+		NroRecibo: N(15)
+		Concepto: N(8)
+		Tipo: 0..2
+		Monto: N(15,2)
+	Finregistro
+
+	compra=registro
+		DNI: N(8)
+		NroCuenta: N(25)
+		Saldo: N(15,2)
+	Finregistro
+
+	peticiones=registro
+		DNI: N(8)
+		CantSoli: N(15,2)
+	Finregistro
+
+	salida=registro
+		DNI: N(8)
+		CantSoli: N(15,2)
+		Pudo={"SI","NO"}
+		Error={"1","2"}
+	Finregistro
+
+
+Procedimiento
+	ABRIR E/(CABECERA);
+	ABRIR E/(RECIBO)
+	ABRIR E/S(COMPRA)
+	ABRIR E/(PETICIONES)
+	ABRIR S/(SALIDA)
+
+
+	Esc("Desea realizar una compra? SI/NO")
+	Leer(rta)
+
+	Mientras rta="SI" hacer
+
+		Esc("Desea realizar una compra? SI/NO")
+		Leer(rta)
+		Leer(CABECERA,reg1)
+
+		Mientras NFDA(CABECERA) hacer
+			Esc("Ingrese el monto disponible recibo del comprador")
+			Leer(Monto)
+			Esc("Cuando se ese monto en pesos disponible que destinara en comprar?")
+			Leer(Importe)
+
+			Disponible:=(30*Monto)/100
+
+			Si reg2.Monto > 10000 hacer
+				Esc("Esta habilitado a realizar una compra")
+				Esc("El monto máximo de pesos que puede usar son de:",Disponible)
+				//Aca solicito cuando deseara comprar
+				Leer(COMPRA,regC)
+				regC.Saldo:=Monto-Importe
+				REGRABAR(COMPRA,regC)
+				//Modifico el saldo del comprador para regrabarlo
+				regS.DNI:=reg1.DNI
+				regS.Cant_Soli:=Importe
+				regS.Pudo:=SI
+				GRABAR(SALIDA,regS)
+				//Aca grabo la evaluacion sobre la compra efectuada
+			Sino
+				Esc("No esta habilitado a realizar una compra")
+			FinSi
+
+			Esc("Desea realizar otra compra? SI/NO")
+			Leer(rta2)
+		FinMientras
+
+			
+
+
+
+
+
+
+
+
+
+
+

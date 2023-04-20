@@ -1,0 +1,11 @@
+Accion 3.3 Es
+Ambiente
+	A[x]: Arreglo de [1..10] de reales
+	i: entero
+Proceso
+	Para i:1 hasta N hacer
+		Esc("Ingrese un x>=0")
+		Leer(x)
+		Y:=Y+A[i]*x**i
+	FinPara
+FinAccion

@@ -1,0 +1,76 @@
+Accion LexCorp Es
+Ambiente
+	GEMAS,SALIDA: secuencia de caracter
+	CODIGO: secuencia de enteros
+	G,c,d,u,SUMA: caracter
+	C,ContGral,Porcent1,Porcent2,Porcent3: entero
+	Función EntCar(x:entero):caracter
+		Según x Hacer
+		=0:EntCar:="0"
+		=1:EntCar:="1"
+		=2:EntCar:="2"
+		=3:EntCar:="3"
+		=4:EntCar:="4"
+		=5:EntCar:="5"
+		=6:EntCar:="6"
+		=7:EntCar:="7"
+		=8:EntCar:="8"
+		=9:EntCar:="9"
+		FinSegún
+	FinFunción
+
+Proceso
+	ARR(GEMAS);AVZ(GEMAS,G)
+	ARR(CODIGO);AVZ(CODIGO,G)
+	ContGral:=0
+	Mientras NFDS(GEMAS) y NFDS(CODIGO) Hacer
+		Mientras G <> "%" Hacer
+			c:=C
+			AVZ(CODIGO,C)
+			d:=C
+			AVZ(CODIGO,C)
+			u:=C
+			SUMAC:=EntCar(c)+EntCar(d)+EntCar(u)
+
+			Según SUMA Hacer
+				<="299":Porcent1:=Porcent1+1
+				<="699":Porcent2:=Porcent2+1
+				>="700":Procent3:=Porcent3+1
+			FinSegún
+
+			Si u MOD 2 <> 0 Entonces
+				Mientras G <> "," Hacer
+					Esc(G)
+					AVZ(GEMAS,G)
+				FinMientras
+				Esc(SUMA)
+			Sino
+				Mientras G <> "," Hacer
+					AVZ(GEMAS,G)
+				FinMientras
+			FinSi
+			AVZ(GEMAS,G)
+			Repetir
+				Esc(SALIDA,G)
+				AVZ(GEMAS,G)
+			Hasta que G = ","
+			Esc(SALIDA,",")
+			Esc(SALIDA,SUMA)
+			AVZ(GEMAS,G)
+		FinMientras
+		AVZ(GEMAS,G)
+		AVZ(CODIGO,C)
+		ContGral:=ContGral+1
+	FinMientras
+	Porcent1:=(Porcent1*100)/ContGral
+	Porcent2:=(Porcent2*100)/ContGral
+	Porcent3:=(Porcent3*100)/ContGral
+	Esc("El total de gemas analizadas es de:",ContGral)
+	Esc("El porcentaje de gemas con codigo entre 0 y 299 es:",Porcent1)
+	Esc("El porcentaje de gemas con codigo entre 300 y 699 es:",Porcent2)
+	Esc("El porcentaje de gemas con codigo entre 700 y 999 es:",Porcent3)
+	CERRAR(GEMAS)
+	CERRAR(CODIGO)
+	CERRAR(SALIDA)
+FinAccion
+			

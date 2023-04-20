@@ -1,0 +1,68 @@
+Accion 2.3.7 Es
+Ambiente
+	LIQUIDACIONES = Registro de
+        OS: 
+        Clinica
+        Nro_Leg
+        Mes
+        Anio
+        Bruto
+        Descuento_AFIP
+     	Descuento_DGR
+	Fin Registro
+	LIQUI:archivo de LIQUIDACIONES Ordenado por OS y Clinica
+	reg1: LIQUIDACIONES
+
+	Obras=registro
+		CodOS
+		Nombre:
+	Fin registro
+	OBRAS: archivo indexado de Obras ordenado por CodOS
+	reg2: Obras
+
+	Clini=registro
+		CodOS
+		Nombre:
+	Fin registro
+	CLINICAS: archivo indexado de Clini ordenado por CodOS
+	reg3: Clini
+
+	Medi=registro
+		NroLeg:
+		ApyNom
+		Especialidad
+		DNI
+	Finregistro
+	MEDICOS: archivo indexado de Medi ordenado por NroLeg
+	reg4: Medi
+
+Proceso
+	Abrir E/(LIQUI);Leer(LIQUI,reg1)
+	Abrir E/(OBRAS)
+	Abrir E/(CLINICAS)	
+	Abrir E/(MEDICOS)
+
+	resgOS:=reg1.clave.OS
+	resgClinica:=reg1.clave.Clinica
+	totOS:=0;totClinica:=0
+
+	reg2.CodOS:=reg1.clave.OS
+	Leer(OBRAS,reg2)
+
+	Si existe Entonces
+		Esc("Obra Social:",reg2.Nombre)
+		reg3.CodClinica:=reg1.clave.Clinica
+		Leer(CLINICA,reg3)
+		Si existe entonces
+			Esc("CLINICA")
+
+	Mientras NFDA(LIQUI) Hacer
+		Si resgOS <> reg1.reg1.clave.OS Entonces
+			CorteOS
+		Sino
+			Si resgClinica <> reg1.clave.Clinica entonces
+				CorteClinica
+			FinSi
+		FinSi
+
+		Neto:=

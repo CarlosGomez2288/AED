@@ -1,0 +1,90 @@
+Accion 2.3.2 Es
+Ambiente
+	Emp=registro
+		Clave=registro
+			NroSucu: N(5)
+			Categoria={"A","B","C"}
+		Finregistro
+		Nombre: AN(30)
+		Cod_Curso: N(10)
+		Tecnico={"SI","NO"}
+	Finregistro
+
+	Curso=registro
+		Cod_Curso: N(10)
+		Nombre: AN(30)
+		Fecha=registro
+			AA: N(4)
+			MM: 1..12
+			DD: 1..31
+		finregistro
+		CantH: N(5)
+	finregistro
+
+	EMPLEADOS: archivo secuencial de Emp ordenado por clave
+	reg1: Emp
+
+	Curso: archivo indexado de Curso ordenado por Cod_Curso
+	reg2: Curso
+
+	Subaccion CorteCategoria es
+		Esc("Para Categoria",resgCategoria,"existen",totEmp)
+		totSucu:=totSucu + totCat
+		totCat:=0
+		resgCategoria:=reg1.clave.Categoria
+	FinSubaccion
+
+	Subaccion CorteSucursal es
+		CorteCategoria
+		Esc("Para Sucursal",resgSucursal,"existen",totCat)
+		TotGral:=totSucu + TotGral
+		totSucu:=0
+		resgSucursal:=reg1.clave.Sucursal
+	FinSubaccion
+
+	Subaccion LEERMAE Es
+		Leer(EMPLEADOS,reg1)
+		Si FDA(EMPLEADOS) entonces
+			reg1.clave.sucu:=HV
+		FinSi
+	FinSubaccion
+
+Proceso
+	Abrir E/(EMPLEADOS);Leer(EMPLEADOS,reg1)
+	Abrir E/(CURSO)
+
+	resgSucursal:=reg1.clave.Sucu
+	resgCategoria:=reg1.clave.Categoria
+
+	Mientras NFDA(EMPLEADOS) hacer
+
+		reg2.Cod_Curso:=reg1.Cod_Curso
+		Leer(CURSO,reg2)
+		Si Existe entonces
+			reg1.Cod_Curso:=reg2.Cod_Curso
+			Esc(reg1.clave.Nro_Sucursal,reg1.clave.Categoria,reg1.Nombre,reg1.Cod_Curso)
+		FinSi
+
+		Si resgSucursal <> reg1.clave.Sucu entonces
+			CorteSucursal
+		Sino
+			Si resgCategoria <> reg1.clave.Categoria entonces
+				CorteCategoria
+			FinSi
+		FinSi
+
+		Si reg1.Tecnico entonces
+			cantTec:=cantTec +1
+		Sino
+			cantNTec:=cantNTec + 1
+		FinSi
+		totEmp:=totEmp + 1
+
+		Leer(EMPLEADOS,reg1)
+
+	FinMientras
+	CorteSucursal
+	esc("El total de empleados de la empresa son:",TotalGral)
+	Cerrar(EMPLEADOS)
+	Cerrar(CURSO)
+FinAccion	

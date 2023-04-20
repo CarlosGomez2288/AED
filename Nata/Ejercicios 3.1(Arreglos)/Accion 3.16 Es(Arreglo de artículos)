@@ -1,0 +1,20 @@
+Accion 3.16 Es(Arreglo de artículos)
+Proceso
+	PARA i:= 1 a (n-1) HACER
+	    x:=a[i].Cant_Vendida
+	    max:=i
+	    PARA j:= i+1 a n HACER
+	        SI (x < a[j].Cant_Vendida) ENTONCES
+	            max:=j
+	            x:=a[j].Cant_Vendida
+	        FIN SI
+	    FIN PARA
+	    a[max]:=a[i]
+	    a[i]:=x
+	FIN PARA
+
+	Para i:=1 hasta N hacer
+		Esc("El artículo:",A[i].Nro_Art,"tiene el ranking Nro:",i)
+	FinPara
+
+FinAccion

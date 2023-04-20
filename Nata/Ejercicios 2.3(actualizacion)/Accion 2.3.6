@@ -1,0 +1,135 @@
+Accion 2.3.6 Es
+Ambiente
+	AUTOS=registro
+		Clave=registro
+			Grupo: N(2)
+			Categoria: 1..50
+			Anio_Fab: N(4)
+			Nro_Patente: N(8)
+		Finregistro
+		DNI: N(8)
+		ApyNom: AN(25)
+		Domicilio: AN(30)
+	Finregistro
+	AUTOS: archivo secuencial de Autos ordenado por Clave
+	reg1: AUTOS
+
+	Deudas=registro
+		ClaveD=registro
+			Nro_Patente: N(8)
+			Anio_Deuda: N(4)
+			Trimestre: N(1)
+		Finregistro
+		Importe: (5,2)
+	Finregistro
+	DEUDAS: archivo indexado de Deudas ordenado por ClaveD
+	reg2: DEUDAS
+
+	cuotas=registro
+		ClaveC=registro
+			Grupo: N(2)
+			Categoria: 1..50
+			Anio_Fab: N(4)
+		Finregistro
+		Importe: (5,2)
+	Finregistro
+	CUOTAS: archivo indexado de Deudas ordenado por ClaveC
+	reg3: CUOTAS
+
+	Subaccion CorteAnioF Es
+		Esc("Para el año de fabricación",resgAnioF,"Total Deuda",cantAnioFabD,"Total Cobro",cantAnioFabC)
+		cantCategoriaD:=cantCategoriaD + cantAnioFabD
+		cantCatgeoriaC:=cantCatgeoriaC + cantAnioFabC
+		cantAnioFabD:=0
+		cantAnioFabC:=0
+		resgAnioF:=reg.CLAVE.Anio_Fab
+	FinSubaccion
+
+	Subaccion CorteCategoria Es
+		CorteAnioF
+		Esc("Para la Categoria",resgCategoria,"Total Deuda",cantCategoriaD,"Total Cobro",cantCategoriaC)
+		cantGrupoD:=cantCategoriaD + cantGrupoD
+		cantGrupoC:=cantCatgeoriaC + cantGrupoC
+		cantCategoriaD:=0
+		cantCategoriaC:=0
+		resgCategoria:=reg.CLAVE.Categoria
+	FinSubaccion
+
+	Subaccion CorteCategoria Es
+		CorteAnioF
+		Esc("Para el Grupo",resgGrupo,"Total Deuda",cantGrupoD,"Total Cobro",cantGrupoC)
+		cantGrupoD:=0
+		cantGrupoC:=0
+		resgGrupo:=reg.CLAVE.Grupo
+	FinSubaccion
+
+	resgAnioF,resgCategoria,resgGrupo: Real
+	cantGrupoC,cantGrupoD,cantAnioFabC,cantAnioFabD,cantCatgeoriaC,cantCategoriaD: real
+	DeudaTrim: entero
+	
+Proceso
+	ABRIR E/(AUTOS);Leer(AUTOS,reg1)
+	ABRIR E/(DEUDAS)
+	ABRIR E/(CUOTAS)
+
+	resgAnioF:=reg.Clave.Anio_Fab
+	resgCategoria:=reg.Clave.Categoria
+	resgGrupo:=reg.Clave.Grupo
+
+	cantGrupoC:=0;cantGrupoD:=0
+	cantAnioFabC:=0;cantAnioFabD:=0
+	cantCatgeoriaC:=0;cantCategoriaD:=0
+
+	Mientras NFDA(AUTOS) hacer
+
+		Si resgGrupo <> reg.Clave.Grupo Entonces
+			CorteGrupo
+		Sino
+			Si resgCategoria <> reg.Clave.Categoria Entonces
+				CorteCategoria
+			Sino
+				Si resgAnioF <> reg.Clave.Anio_Fab Entonces
+					CorteAnioF
+				FinSi
+			FinSi
+		FinSi
+
+		reg2.CLAVED.NroPatente:=reg1.Clave.NroPatente
+		reg2.CLAVED.Anio_Fab:=2022
+
+		DeudaTrim:=0
+		Para i:=1 hasta 3 hacer
+			reg2.CLAVED.Trimestre:=i
+			Leer(DEUDAS,reg2)
+			Si existe
+				DeudaTrim:=DeudaTrim + reg2.Importe
+			FinSi
+		FinPara
+
+		cantAnioFabD:=cantAnioFabD + DeudaTrim
+
+		reg3.CLAVEC.Grupo:=reg1.CLAVE.Grupo
+		reg3.CLAVEC.Categoria:=reg1.CLAVE.Categoria
+		reg3.CLAVEC.Anio_Fab:=reg1.CLAVEC.Anio_Fab
+
+		Leer(AUTOS,reg1)
+
+		cantAnioFabC:=cantAnioFabC + reg3.Importe
+
+	    Leer(AUTOS,reg1)
+	Fin Mientras
+	CorteGrupo
+	CerrarArchivos
+FinAccion
+
+
+
+		
+
+
+
+
+
+
+
+

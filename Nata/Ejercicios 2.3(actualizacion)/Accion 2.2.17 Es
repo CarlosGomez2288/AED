@@ -1,0 +1,74 @@
+Accion_2.2.17_Es
+    FECHA = Registro
+            DIA:1..31
+            MES:1..12
+            ANIO:N(4)
+    Fin Registro
+
+    ASPIRANTES = Registro de
+        DNI:N(8)
+        AyN:AF(30)
+        Carrera:("ISI","IQ","IEM")
+        F_Nac = FECHA
+        Email:AF(30)
+        Colegio:AF(30)
+        F_Ins = FECHA
+        Aprobado:(Si/No)
+    Fin Registro
+
+    AGOSTO,FEBRERO:archivo de ASPIRANTES ordenado por DNI
+    Reg1,Reg2:ASPIRANTES
+
+    SEGUIMIENTO = Registro de
+        DNI:N(8)
+        AyN:AF(30)
+        Email:AF(30)
+        Colegio:AF(30)
+    Fin Registro
+    Archsal:archivo de SEGUIMIENTO ordenado por DNI
+    Reg3:SEGUIMIENTO
+
+    Subaccion Leer_FEBRERO Es
+        Leer(FEBRERO,Reg1)
+        Si FDA(FEBRERO) Entonces
+            Reg1.DNI:=HV
+        Fin Si
+    Fin Subaccion
+
+    Subaccion Leer_AGOSTO Es
+        Leer(AGOSTO,Reg2)
+        Si FDA(AGOSTO) Entonces
+            Reg2.DNI:=HV
+        Fin Si
+    Fin Subaccion
+
+Algoritmo
+    Abrir e/(FEBRERO); Leer (FEBRERO, reg1); 
+    Abrir e/(AGOSTO); Leer (AGOSTO, reg2); 
+    Abrir /s(SEGUIMIENTO); 
+
+    Mientras (Reg1.DNI <> HV) o (Reg2.DNI <> HV) hacer
+        Si Reg1.DNI = Reg2.DNI Entonces
+            Si Reg1.Aprobado = "NO" Entonces
+                Reg3.DNI:=Reg1.DNI
+                Reg3.AyN:=Reg1.AyN
+                Reg3.Email:=Reg1.Email
+                Reg3.Colegio:=Reg1.Colegio
+                GRABAR(SEGUIMIENTO,Reg3)
+                Cont:=Cont+1
+            FinSi
+            LEER(FEBRERO,Reg1)
+            LEER(AGOSTO,Reg2)
+        Sino
+            Si Reg1.DNI < Reg2.DNI Entonces
+                Leer_FEBRERO
+            Sino
+                Leer_AGOSTO
+            Fin Si
+        FinSi
+    Fin Mientras
+    Esc("La cantidad de Aspirantes que no aprobaron ambos turnos son:",Cont)
+    CERRAR(FEBRERO)
+    CERRAR(AGOSTO)
+    CERRAR(SEGUIMIENTO)
+Fin Accion

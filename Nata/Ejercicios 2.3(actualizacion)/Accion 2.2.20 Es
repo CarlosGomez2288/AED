@@ -1,0 +1,44 @@
+Accion 2.2.20 Es
+Ambiente
+	 Aspirantes=Registro
+        DNI: Numerico (8)
+        ApeyNom: Alfanumerico (10)
+        Carrera: Alfanumerico (10)
+        F_Nac=Fecha
+        Email: Alfanumerico (10)
+        ColegioSec: Alfanumerico (10)
+        FechaInscripción=Fecha
+        Aprobado (SI/NO)
+		MarcaBaja: Fecha; 
+    Fin Registro
+
+Proceso 
+	Abrir e/ (ArchAlumnos); LeerAlumnos;
+	Abrir e/ (ArchExamenes); LeerExamenes; 
+	Abrir s/ (ArchAlumAct);
+
+	Mientras rega.nroleg <> HV o rege.nroleg <> HV hacer 
+		Si rega.nroleg < rege.nroleg entonces 
+		// Alumno que no rindio!
+			regs:= rega;
+			Grabar (ArchAlumAct, regs);
+			LeerAlumnos;	
+		sino 
+			Si rega.nroleg = rege.nroleg entonces 
+				aux:=rega
+				Mientras (rega.nroleg = rege.nroleg) Hacer
+					Si rege.nota >= 6 entonces 
+						aux.fecultexaaprob:= rege.fechaexamen; 
+						aux:= rege.nota; 
+					FinSi
+					LeerExamenes
+				FinMientras
+				regs:=aux 
+				Grabar (ArchAlumAct, regs)
+				LeerAlumnos;
+			sino 
+				ESC ("Error Critico"); 
+				LeerExamenes		
+			FinSi 
+		FinSi 
+	FinMientras

@@ -1,0 +1,69 @@
+Accion Hospital Es
+Ambiente
+	Consumo=registro
+		Barrio: AN(30)
+		Usuario: AN(50)
+		FechaC: Fecha
+		Consumo: N(10,2)
+	FinRegistro
+	Arch: archivo secuencial de Consumo ordenado por Barrio,Usuario
+	y FechaC
+	reg,ResgB,ResgU: Arch
+	acumusu,acumbar,tot: entero
+
+	Salida=Registro
+		Barrio: AN(30)
+		Usuario: AN(50)
+		Consumo: N(10,2)
+	FinRegistro
+	Sal: archivo secuencial de Consumo ordenado por Barrio,Usuario
+	s: Sal
+
+	Fecha=registro
+		DD: 1..31
+		MM: 1..12
+		AA: N(4)
+	FinRegistro
+
+	Subaccion CorteUsuario Es
+		s.Barrio:=reg.Barrio
+		s.Usuario:=reg.Usuario
+		s.Consumo:=acumusu
+		GRABAR(Sal,s)
+		acumusu:=0
+		ResgU:=reg.Usuario
+	FinSubaccion
+
+	Subaccion CorteBarrio Es
+		
+
+
+Proceso
+	ABRIR E/(Arch)
+	LEER(Arch,reg)
+	ABRIR S/(Sal)
+	ResgB:=reg.Barrio
+	ResgU:=reg.Usuario
+	acumconsu:=0;acumbar:=0;tot:=0
+	
+	Mientras NFDA(Arch) hacer
+		Si ResgB <> reg.Barrio Entonces
+			CorteBarrio
+		Sino
+			Si ResgU <> reg.Usuario Entonces
+				CorteUsuario
+			FinSi
+		FinSi
+
+		acumusu:= acumusu + reg.Consumo
+
+		Si reg.FechaC.AA = 2015 Entonces
+			acumbarrio:=acumbarrio + acumusu
+		FinSi
+
+		Leer(Arch,reg)
+	FinMientras
+
+	
+
+		

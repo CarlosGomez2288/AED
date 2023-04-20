@@ -1,0 +1,99 @@
+Accion 2.3.9 Es
+Ambiente
+	Venta=registro
+		VentaNro: N(10)
+		VentaFecha: Fecha
+		FacturaNro: N(10)
+		ProductoID: N(10)
+		CantVendida: N(10)
+		ClienteID: N(10)
+	Fin Registro
+	Ventas: archivo de Venta ordenado por VentaNro
+	regV: Venta
+
+	Detalles=registro
+		NroOpe: N(10)
+		FechaOperacion: Fecha
+		ClienteID: N(10)
+		Importe: N(15,2)
+		FacturaNro: N(10)
+	Fin Registro
+	Detalle: archivo indexado de Detalles ordenado por NroOpe
+	regD: Detalles
+
+	Cliente=registro
+		ClienteID: N(10)
+		ClienteNombre: AN(30)
+		ClienteCUIT: N(11)
+		ClienteSaldo: N(15,2)
+	Fin Registro
+	Clientes: archivo indexado de Cliente ordenado por ClienteID
+	regC: Cliente
+
+	Producto=registro
+		ProductoID: N(10)
+		Stock: N(10)
+		ProductoDetalle: AN(150)
+		CostoUni: N(15,2)
+	Fin Registro
+	Prodcutos: archivo indexado de Producto ordenado por ProductoID
+	regP: Producto
+
+	Fecha=registro
+		AA: N(4)
+		MM: 1..12
+		DD: 1..31
+	Fin Registro
+
+Proceso
+	Abrir E/S(Clientes)
+	Abrir S/(Detalle)
+	Abrir E/(Ventas);Leer(Ventas,regV)
+	Abrir E/S(Productos)
+
+	ContProduct:=0;
+
+	Mientras NFDA(Ventas) hacer
+		regC.ClienteID:=regV.ClienteID
+		Leer(Clientes,regC)
+
+		regP.ProductoID:=regV.ProductoID
+		Leer(ProductosS,regP)
+
+		Si existe entonces
+			regP.Stock:=regP.Stock - regV.CantVendida
+			REGRABAR(Productos)
+
+			Importe:=regP.CostoUni*regV.CantVendida
+			regC.ClienteSaldo:=regC.ClienteSaldo - Importe
+			REGRABAR(Clientes,regC)
+
+			regD.Importe:=regP.CostoUni*regV.CantVendida
+			regD.NroOpe:=Nueva_Ope()
+			regD.FechaOperacion:= regV.VentaFecha
+			regD.Importe:=Importe
+			regD.FacturaNum:= regV.FacturaNro
+			GRABAR(Detalle,regD)
+
+			ContProduct:=ContProduct + 1
+		FinSi
+		Leer(Ventas,regV)
+	FinMientras
+
+	Cerrar(Cliente)
+
+	Abrir E/(Clientes);Leer(Clientes,regE)
+	Esc("Cliente/Saldo Nuevo")
+
+	Mientras NFDA(Clientes) hacer
+		Esc("regC.ClienteNombre/regC.ClienteSaldo")
+		Leer(Clienes,regC)
+	FinSi
+
+	Esc("El total de productos vendidos es de:",ContProduct)
+	CerrarArchivos()
+FinAccion
+
+
+			
+
