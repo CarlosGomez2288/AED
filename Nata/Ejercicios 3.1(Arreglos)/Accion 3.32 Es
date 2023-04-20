@@ -1,0 +1,15 @@
+Accion 3.32 Es
+Ambiente
+    Estacionamiento=registro
+        FECHA: fecha
+        PATENTE: N(7)
+        HoraD: N(2)
+        HoraH: N(2)
+        Posta: 1..100
+    FinRegistro
+    reg: Estacionamiento
+    ESTACIONAMIENTO: archivo secuencial de Estacionamiento
+
+
+    fecha=registro
+Proceso

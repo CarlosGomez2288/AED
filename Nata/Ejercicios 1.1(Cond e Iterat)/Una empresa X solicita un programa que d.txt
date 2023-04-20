@@ -1,0 +1,15 @@
+Una empresa X solicita un programa que devuelva el monto total a pagar de una compra.
+Ademas cuenta con una promoción, si el monto supera los $1000, se realiza un descuento del 15%
+
+Accion empresa Es
+Ambiente
+    Variables
+        compra: Numerico
+Proceso
+    Escribir("Ingrese el monto de su compra")
+    Leer(compra)
+    Si (compra>"1000") Entonces
+        compra:=compra*0.85
+    FinSi
+    Escribir("Su monto total a pagar es:",Total)
+FinAccion

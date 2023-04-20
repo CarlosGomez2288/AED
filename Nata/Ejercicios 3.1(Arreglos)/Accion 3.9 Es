@@ -1,0 +1,33 @@
+Accion 3.9 Es
+Ambiente
+	Libro=registro
+		NroLibro: N(3)
+		Titulo: AN(50)
+		Autor: An(50)
+		CantHojas: N(4)
+	FinRegistro
+
+	A: Arreglo de [1..4] Entero ordenado por autor
+	i,cont: entero
+
+Prceso
+	Mayor:=0
+	cont:=0
+	Para i:=1 hasta 200 hacer
+		Si A[i].Autor = "Niclaus Wirth" Entonces
+			Si A[i].CantHojas > Mayor Entonces
+				Mayor:=A[i].CantHojas
+				LibMayor:=A[i].Titulo
+			FinSi
+			cont:=cont+1
+		FinSi
+
+		Si A[i].Titulo = "AED" Entonces
+			Esc("El titulo libro de AED, esta en´la posición:",i)
+		FinSi
+
+	FinPara
+
+	Esc("El libro de Niclaus Wirth con mayor numero de hojas es:",LibMayor)
+	Esc("La cantidad de libros del autor Niclaus Wirth son:",cont)
+FinAccion

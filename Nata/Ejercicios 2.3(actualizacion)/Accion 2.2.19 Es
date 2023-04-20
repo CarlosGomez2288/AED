@@ -1,0 +1,71 @@
+Accion 2.2.19 Es
+Ambiente
+
+
+Proceso
+	ABRIR/E(MAE_REMEDIOS),Leer(MAE_REMEDIOS,regmae)
+	ABRIR/E(MOVIENTOS),Leer(MOVIENTOS,regmov)
+	ABRIR/S(REM_VENC)
+	ABRIR/S(MAE_ACT)
+
+	Mientras (regmae.Clave <> HV) o (regmov.Clave <> HV) Hacer
+		Si regmae.Clave < regmov.Clave Entonces
+			sal:=regmae
+			GRABAR(MAE_ACT,sal)
+			Leer_MAE_REMEDIOS
+		Sino
+			Si regmae.Clave = regmov.Clave Entonces
+				Según MOVIMIENTO.Cod Hacer
+					="1":Esc("ERROR")
+					="2":regvenc.Medicamento:=regmov.Medicamento
+						regvenc.CantVenc:=regmae.CantActual
+						GRABAR(REM_VENC,regvenc)
+					="3":regsal:=regmae
+						sal.CantActual:=regmov.CantRecib
+						GRABAR(MAE_ACT,sal)
+				FinSegún
+				Leer_MOVIMIENTO
+				Leer_MAE_REMEDIOS
+			Sino
+
+				Según MOVIMIENTO.Cod Hacer
+					="1":sal.Clave.Farmacia:=regmov.Clave.Farmacia
+						sal.Clave.Medicamento:=regmov.Clave.Medicamento
+						sal.CantActual:=regmov.CantRecib
+						sal.FechaVenc:=FechaSistema() + 30
+						GRABAR(MAE_ACT,sal)
+					="2":Esc("ERROR")
+					="3":Esc("ERROR")
+				FinSegún
+				Leer_MOVIMIENTO
+			FinSi
+		FinSi
+	FinMientras
+	CERRAR(MAE_REMEDIOS)
+	CERRAR(MOVIENTOS)
+	CERRAR(REM_VENC)
+	CERRAR(MAE_ACT)
+FinAccion
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+FinAccion

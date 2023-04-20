@@ -1,0 +1,85 @@
+Accion 2.2.23 Es
+Ambiente
+	Cliente=Registro
+		Casa: N(10)
+		FechaUlt: Fecha
+		CantLect: N(5)
+		PromLect: N(5)
+		TipoConsum={"A","B","C"}
+	FinRegistro
+
+	Fecha=registro
+		AA: N(4)
+		MM: 1..12
+		DD: 1..31
+	FinRegistro
+
+	Mediciones=Registro
+		Casa: N(10)
+		FechaMed: Fecha
+		Consumo: N(10)
+	FinRegistro
+
+	MEDICIONES,Salida: archivo secuencial de Mediciones
+	regmae,sal,aux: Cliente
+	CLIENTE: archivo secuencial de Cliente
+	regmov: Mediciones
+
+
+	Subaccion Leer_MEDICIONES Es
+		Leer(MEDICIONES,regmov)
+		Si FDA(MEDICIONES) Entonces
+			regmov.Casa:=HV
+		FinSi
+	FinSubaccion
+
+	Subaccion Leer_CLIENTE Es
+		Leer(CLIENTE,regmae)
+		Si FDA(CLIENTE) Entonces
+			regmae.Casa:=HV
+		FinSi
+	FinSubaccion
+
+	FechaMax:= Fecha
+
+Proceso
+	Abrir E/(Cliente);LeerCliente
+	Abrir E/(Mediciones);LeerMediciones
+	Abrir S/(Cliente_sal)
+
+	Fecha2015.AA:=2015
+	Fecha2015.MM:=2
+	Fecha2015.DD:=1
+
+	Mientras (regmae.Casa <> HV o regmov.Casa <> HV) Hacer
+		Si rege1.Casa < rege2.Casa Entonces
+			regsal:=regmae
+			GRABAR(Cliente_sal,regsal)
+			LeerCliente
+		Sino
+			Si rege1.Casa = rege2.Casa Entonces
+				aux:=regmae
+				aux.CantLect:=0
+				aux.PromLect:=0
+
+				Mientras rege1.Casa = rege2.Casa Hacer
+					//si el auxiliar es menor a enero de 2016
+					Si aux.Ult_Fecha < FechaMax Entonces 
+						Consum:=Consum+1
+						aux.FechaUlt:=regmov.FechaMed
+						PromL
+					
+					sino
+					FinSi
+				FinMientras
+
+			Sino
+				Esc("Error")
+				LeerMediciones
+			FinSi
+		FinSi
+	FinMientras
+	CERRAR(Cliente)
+	CERRAR(Mediciones)
+	CERRAR(Cliente_sal)
+FinAccion

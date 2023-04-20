@@ -1,0 +1,9 @@
+Accion COSME Es(Prim1,PRim2:puntero a NODO)
+Ambiente
+    r1=registro
+        Codigo: N(10)
+        Rubro: AN(50)
+        Precio: N(15,2)
+    finregistro
+
+Proceso

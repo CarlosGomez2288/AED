@@ -1,0 +1,97 @@
+Accion 2.2.24 Es
+Ambiente
+	Costos=registro
+		CodAfi: N(10)
+		FechaA: Fecha
+		FechaB: Fecha
+		CantServi: N(10)
+		Costo: N(15,2)
+	FinRegistro
+
+	Servicios=registro
+		CodAfi: N(10)
+		FechaAt: Fecha
+		CodServi: N(3)
+		Costo: N(15,2)
+	FinRegistro
+
+	Fecha = Registro
+        DD: 1..31
+        MM: 1..12
+        AA: N(4)
+    Fin Registro
+
+	COSTOS_POR_AFILIADO,SALIDA: archivo secuencial de Costos ordenado por CodAfi
+	regmae,sal,aux: Costos
+	SERVICIOS_SEMANALES: archivo secuencial de Servicios ordenado por Clave
+	regmov: Servicios
+
+	subaccion Leer_Maestro es
+		leer (COSTOS_POR_AFILIADO, regmae)
+		si fda (COSTOS_POR_AFILIADO) entonces
+			regmae.CodAfi := HV
+		fin si
+	fin subaccion
+
+	subaccion Leer_Movimiento es
+		leer (SERVICIOS_SEMANALES, regmov)
+		si fda (SERVICIOS_SEMANALES) entonces
+			regmov.CodAfi := HV
+		fin si
+	fin subaccion
+
+Proceso
+	ABRIR/E(COSTOS_POR_AFILIADO),leer (COSTOS_POR_AFILIADO, regmae)
+	ABRIR/E(SERVICIOS_SEMANALES),leer (SERVICIOS_SEMANALES, regmov)
+	ABRIR/S(SALIDA)
+
+	Mientras (regmae.CodAfi <> HV) o (regmov.CodAfi <> HV) Hacer
+		Si regmae.CodAfi < regmov.CodAfi entonces
+			sal:=regmae
+			GRABAR(SALIDA,sal)
+			Leer_Maestro
+		Sino
+			Si regmae.CodAfi = regmov.CodAfi entonces
+				aux:=regmae
+				aux.CantServi:=0
+
+				Mientras regmae.CodAfi = regmov.CodAfi hacer
+					Si regmov.CodServi = "000" entonces
+						aux.FechaB:=regmov.FechaAt
+					Sino
+						aux.Costo:=aux.Costo + regmov.Costo
+						aux.CantServi:=aux.CantServi+1
+					FinSi
+					Leer_Movimiento
+				FinMientras
+				regsal:=aux
+				GRABAR(SALIDA,sal)
+			Sino
+				Si regmov.CodServi = "001" entonces
+					sal.CodAfi:=regmov.CodAfi
+					sal.FechaA:=regmov.FechaAt
+					sal.FechaB:=" " //vacío
+					sal.CantSevi:=0
+					sal.Costo:=0
+					Mientras sal.CodAfi = regmov.CodAfi hacer
+						Si regmov.CodServi = "000" entonces
+							sal.FechaB:=regmov.FechaAt
+						Sino
+							sal.Costo:=sal.Costo+regmov.Costo
+							sal.CantServi:=sal.CantServi+1
+						FinSi
+						Leer_Movimiento
+					FinMientras
+					Grabar(SALIDA,sal)
+				Sino
+					Esc("Error - El usuario no utilizo ningun sevicio esta semana")
+					Leer_Movimiento
+				FinSi
+			FinSi
+		FinSi
+	FinMientras
+	Cerrar(COSTOS_POR_AFILIADO)
+	Cerrar(SERVICIOS_SEMANALES)
+	Cerrar(SALIDA)
+FinSi
+

@@ -1,0 +1,88 @@
+Accion 2.2.25 Es
+Ambiente
+	Clave=registro
+		CodAmi: N(10)
+		CodU: N(10)
+	Finregistro
+
+	Amigo=registro
+		Clavemae: clave
+		FechaA: Fecha
+		MensajeM: AN(100)
+	Finregistro
+
+	Noti=registro
+		Clavemov: clave
+		CodM={"A","B","M"}
+		FechaA: Fecha
+		MensajeM: AN(100)
+	Finregistro
+
+	subaccion LEERMaestro es
+		leer (AMIGOS, regmae)
+		si fda (AMIGOS) entonces
+			regmae.Clave := HV
+		fin si
+	fin subaccion
+
+	subaccion LEERMovimiento es
+		leer (NOTIFIACAIONES, regmov)
+		si fda (SERVICIOS_SEMANALES) entonces
+			regmov.CodAfi := HV
+		fin si
+	fin subaccion
+
+
+
+
+Proceso 
+	Abrir e/(Amigos); LEERMaestro;
+	Abrir e/ (Notificacion); LEERMovimiento;
+	Abrir s/ (AmigosAct); 
+	
+	Mientras (regmae.Clavemae <> HV) o (regmov.Clavemov <> HV) hacer 
+		Si regmae.Clavemae < regmov.Clavemov entonces // maestro sin movimiento 
+			regsal:= regmov; 
+			GRABAR (AmigosAct, regsal);
+			LEERMaestro		
+		sino 
+			Si regmae.Clavemae = regmov.Clavemov entonces // maesto con movimiento
+				aux:=regmae
+				Mientras regmae.Clavemae = regmov.Clavemov
+					Segun regmov.Codmov hacer 
+					  "A": ESC ("Error Critico");
+					  "B": ESC ("Se ha procesado la Baja de dicha Amistad")
+					  "M": regsal:= regmae;
+						   aux.MjeMuro:= regmov.MjeMuro;
+					FinSegun
+					LEERMovimiento
+				FinMientras
+				GRABAR (AmigosAct, regsal);
+				LEERMaestro;
+			sino // regmae.Clavemae > regmov.Clavemov // movimiento sin maestro
+				Si regmov.Codmov = "A" entonces
+					regsal.Clavemae:= regmov.Clavemov;
+				    regsal.FechaAmistad:= regmov.FechaAmistad;
+					regsal.MjeMuro:= regmov.MjeMuro;
+					LEERMoviemiento
+					Mientras regmae.Clavemae = regmov.Clavemov
+						Segun regmov.Codmov hacer 
+					  		"A":ESC ("Error Critico");
+					  		"B":ESC ("Se ha procesado la Baja de dicha Amistad")
+					  		"M":regsal:= regmae;
+							   	regsal.MjeMuro:= regmov.MjeMuro;
+						FinSegun
+						LEERMovimiento
+					FinMientras
+					GRABAR (AmigosAct, regsal);
+				sino 
+					ESC ("Error Critico");
+					LeerMOVIMIENTO
+				FinSi
+			FinSi
+		FinSi
+	FinMientras
+	
+	CerrarArchivos; 
+	
+FinAccion;

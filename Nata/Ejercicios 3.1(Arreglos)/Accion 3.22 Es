@@ -1,0 +1,17 @@
+Accion 3.22 Es
+Ambiente
+	A: arreglo de [1..5,1..5] de reales
+	B: arreglo de [1..5,1..5] de reales
+	i,j,y,z: entero
+Proceso
+	Para i:=1 hasta 5 hacer
+		Para j:=1 hasta 5 hacer
+			B[1,i]:=B[1,i]+A[i,j]
+		FinPara
+	FinPara
+	Para j:=1 hasta 5 hacer
+		Para i:=1 hasta 5 hacer
+			B[2,j]:=B[2,j]+A[i,j]
+		FinPara
+	FinPara
+FinAccion

@@ -1,0 +1,22 @@
+Accion 3.20 Es
+Ambiente
+	A,B,C: arreglo de [1..5,1..5] de entero
+	i,j: entero
+Proceso
+	Para i:= hasta 5 Hacer
+		Para j:=1 hasta 5 hacer
+
+			Si (i = j) Entonces
+				C[i,j]:=0
+			Sino
+				Si (i < j) Entonces
+					C[i,j]:=A[i,j]
+				Sino
+					C[i,j]:=B[i,j]
+				FinSi
+			FinSi
+		FinPara
+	FinPara
+FinAccion
+
+

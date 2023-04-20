@@ -1,0 +1,52 @@
+Accion 2.3.4 es
+Ambiente
+
+	Productos=registro
+		CodProd: N(10)
+		Nombre: AN(30)
+		Stock: N(10)
+		Precio: N(6,2)
+	Finregistro
+
+	Ticket=registro
+		NroTicket: N(10)
+		Fecha=registro
+			AA:
+
+	Rta={"SI","NO"}
+	DNI: N(8)
+
+
+Proceso
+	abrir e/(PRODUCTOS)
+	abrir s/(TICKET)
+	abrir s/(DETALLE)
+
+	esc("desea realizar una compra? SI/NO");leer(dato)
+
+	Mientras (dato = "SI") hacer
+
+		esc("EMPRESA/CUIT/FECHA")
+		esc("CLIENTE: consumidor final")
+		esc("PRODUCTO/CANTIDAD/TOTAL")
+
+		esc("Desea ingresar un producto" SI/NO"),leer(dato2)
+
+		Mientras dato2 = "SI" hacer
+
+			Esc("Ingrese el codigo del producto");leer(cod)
+			Esc("Ingrese la cantidad del producto");leer(cant)
+
+			reg.CodProd:=cod
+			leer(PRODUCTOS,reg)
+
+			reg.Stock:=reg.Stock - Cant
+			regrabar(PRODCUTOS,reg)
+
+		FinMientras
+
+
+
+	
+
+

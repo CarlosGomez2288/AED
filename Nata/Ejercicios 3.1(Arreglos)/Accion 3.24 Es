@@ -1,0 +1,44 @@
+Accion 2.24 Es
+Ambiente
+	C: arreglo de [1..11,1..6] de reales
+	i,j:entero
+	TotxCaja,TotxHora: real
+
+	caja=registro
+		AyN: AN()
+		Nro_Caja: 
+		Importe:
+		Horario:
+	FinRegistro
+	Cajas: archivo de caja ordenado por AyN
+	reg: caja
+
+Proceso
+	Para i:=1 hasta 11 Hacer
+		Para j:=1 hasta 5 hacer
+			C[i,j]:=0
+		FinPara
+	FinPara
+
+	Mientras NFDA(Cajas) Hacer
+		Para j:=1 hasta 5 hacer
+			Según Horario Hacer
+				<10:C[i,1]:=reg.importe
+				<12:C[i,2]:=reg.importe
+				<16:C[i,3]:=reg.importe
+				<18:C[i,4]:=reg.importe
+				<=20:C[i,5]:=reg.importe
+			FinSegún
+
+			TotxCaja:=TotxCaja + C[i,j]
+			
+		FinPara
+
+		TotxHora:=TotxHora + C[i,j]
+
+		Leer(Cajas,reg)
+
+	FinMientras
+
+
+
