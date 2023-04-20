@@ -1,3 +1,8 @@
+orden{
+    1: git add . o nombre del archivo   invidual
+    2: git commit -m "comentario"
+    3: git push -u origin master -> sube al serve
+}
 git reset -hard codigo de id -> sirve para rataurar el archivo 
 git log --online -> sirve para ver todos los commit
 git add . -> sirve para add a todos los archivo
