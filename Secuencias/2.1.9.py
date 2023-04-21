@@ -24,4 +24,5 @@ accion 2.1.9 es
         finMientras
         cerrar(sec);
         Esc("La palabra que hay son ", cont);
+    finProceso
 finaccion

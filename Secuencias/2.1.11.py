@@ -29,5 +29,7 @@ accion 2.1.11 es
                 contp:= contp + 1; #1 2 
             finsi
         finMientras
-        Esc("Hay", contp)
+        cerrar(sec);
+        Esc("Hay", contp);
+    finProceso
 finaccion

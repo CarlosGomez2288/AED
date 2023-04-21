@@ -9,12 +9,13 @@ accion 2.1.3 es
         crear(s2)
         avz(s,v)
 
-    Mientras NDFS(s) hacer
-         si (v <> "$") entonces
-            Esc(s2,v)
-        FinSi
-        avz(s,v)
-    finMientras
-    cerrar(s)
-    cerrar(s2)
+        Mientras NDFS(s) hacer
+            si (v <> "$") entonces
+                Esc(s2,v)
+            FinSi
+            avz(s,v)
+        finMientras
+        cerrar(s)
+        cerrar(s2)
+    finProceso
 finaccion

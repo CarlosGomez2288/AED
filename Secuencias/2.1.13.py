@@ -1,5 +1,5 @@
-A partir del ejercicio anterior, determinar el porcentaje que representan las palabras que comienzan con "ALG" sobre todas 
-las palabras de la secuencia.
+# A partir del ejercicio anterior, determinar el porcentaje que representan las palabras que comienzan con "ALG" sobre todas 
+# las palabras de la secuencia.
 accion 2.1.13 es
     ambiente
         sec: secuencia de caracteres;
@@ -42,7 +42,6 @@ accion 2.1.13 es
         sino
             Esc("No se encontraron palabras en la secuencia");
         finsi
-
         cerrar(sec);
     finProceso
 finAccion

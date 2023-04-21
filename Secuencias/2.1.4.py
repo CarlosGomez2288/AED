@@ -12,4 +12,5 @@ accion 2.1.4 es
         finMientras
         Esc("En la secuencia hay ", cont , "socio")
         cerrar(s);
+    finProceso
 finaccion

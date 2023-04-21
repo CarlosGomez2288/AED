@@ -13,5 +13,6 @@ accion 2.1.1 es
             finsi
             avz(s,b)
         finMientras
+        cerrar(sec);
         Esc("En la secuencia hay ", cont," A");
 finaccion

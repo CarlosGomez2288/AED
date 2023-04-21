@@ -33,4 +33,5 @@ accion 2.1.12 es
 
         finMientras
         cerrar(sec);
+    finProceso
 finaccion

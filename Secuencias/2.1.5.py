@@ -23,4 +23,5 @@ accion 2.1.5 es
         finMientras
         cerrar(sec);
         cerrar(sec2);
+    finProceso
 finaccion

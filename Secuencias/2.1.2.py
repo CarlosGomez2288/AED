@@ -17,4 +17,5 @@ accion 2.1.2 es
 
         Esc("En la secuencia hay ", cont, " consonantes");
         cerrar(s)
+    finProceso
 finaccion

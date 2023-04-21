@@ -18,4 +18,5 @@ accion 2.1.7 es
 
         cerrar(sec)
         Esc("Proceso Terminado");
+    finProceso
 finaccion

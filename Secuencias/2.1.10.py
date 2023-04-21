@@ -24,4 +24,6 @@ accion 2.1.10 es
                 avz(sec);
             finMientras
         finMientras
+        cerrar(sec);
+    finProceso
 finaccion
