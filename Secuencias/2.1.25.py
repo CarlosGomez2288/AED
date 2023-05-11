@@ -30,9 +30,10 @@ accion 2.1.25 es
                         sino
                             Esc(sec2, v) 
                         finsi
-                        Esc(sec3,cant_v); 
                         avz(sec, v);
                     finMientras
+                    Esc(sec3,cant_v);
+                    cont:v:=0;
                 sino
                     Mientras (v <> " ") y (v <> ".") hacer
                         avz(sec, v);
