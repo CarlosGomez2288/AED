@@ -3,7 +3,7 @@ accion 2.1.23 es
         secNombre, secDNI, salida:Secuencia  de caracteres
         v1,v2:caracter
         num1:Entero;
-        funcion convertir(num:entero):entero es
+        funcion convertir(num:entero):entero es -> #funcion para cambiar los tipos
             segun (num) hacer
                 "1": convertir:=1;
                 "2": convertir:=2;
@@ -24,23 +24,24 @@ accion 2.1.23 es
         num1:= convertir(v2);
 
         Mientras NFDS(secNombre) y NFDS(secDNI) hacer
-            si( num1 mod 2 <> 0 ) hacer
-                Mientras( v1 = " ") hacer
+            si( num1 mod 2 <> 0 ) hacer -> # verifico si el dni comienza con impar
+
+                Mientras( v1 = " ") hacer -> #Saltea los blancos
                     avz(secNombre, v1);
                 finMientras
 
-                para i = 1 hasta 8 hacer
+                para i = 1 hasta 8 hacer -> #copio el dni
                     Esc(salida,v2);
                     avz(secDNI,v2);
                 finpara
                 Esc(salida,",");
 
-                Mientras( v <> " ") hacer
+                Mientras( v <> " ") hacer -> #copio el nombre
                     Esc(salida,v1);
                     avz(secNombre,v1);
                 finMientras
                 Esc(salida,"#");
-            sino
+            sino -> #En caso que no comienze con impar
                 Mientras( v1 = " ") hacer
                     avz(secNombre, v1);
                 finMientras
@@ -54,6 +55,7 @@ accion 2.1.23 es
                 finMientras
             finsi
         finMientras
-
+        cerrar(secNombre);cerrar(secDNI); cerrar(salida);
+        Esc("Secuencia creada...")
     finProceso
 finAccion
