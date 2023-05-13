@@ -1,4 +1,4 @@
-accion 2.2.1 es
+accion 2.2.5 es
     ambiente
         Fecha= Registro
             dd:1..31;
