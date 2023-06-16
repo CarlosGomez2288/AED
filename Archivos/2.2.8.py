@@ -50,3 +50,6 @@ accion 2.2.8 es
         leer(archi_com,regCom);
     finmientras
 finaccion
+
+proceso
+
