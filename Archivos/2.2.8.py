@@ -51,5 +51,3 @@ accion 2.2.8 es
     finmientras
 finaccion
 
-proceso
-
