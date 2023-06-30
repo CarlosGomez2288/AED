@@ -195,7 +195,6 @@ accion corte es
         procedimiento corte_nivel() es
             Esc("La cantidad de habitaaciones del nivel ". res_nivel ," es ", cont_habi);
             cont_cadena:= cont_cadena + cont_habi;
-            to_cadena:= to_cadena + cont_habi;
 
             cont_habi:= 0;
             resg_nivel:=reg.nivel_hotel;
@@ -203,14 +202,16 @@ accion corte es
 
         procedimiento corte_cadena() es
             corte_mivel();
+            Esc("La cantidad de habitaaciones de la cadena ". resg_cadena ," es ", cont_cadena);
+            total_gral:= to_Gral + cont_cadena;
+            to_cadena:= to_cadena + cont_habi;
+
+            cont_cadena:= 0;
+
             reg_Sal.cont_cadena:=resg_cadena;
             reg_Sal.cant_habi:= to_cadena:
             Esc(archi_sal,reg_Sal);
-
-            Esc("La cantidad de habitaaciones de la cadena ". resg_cadena ," es ", cont_cadena);
-            total_gral:= to_Gral + cont_cadena;
-            
-            cont_cadena:= 0;
+            to_cadena:=0;
             resg_cadena:=reg.cod_cadena;
         finProcedimiento
 
@@ -235,7 +236,7 @@ accion corte es
             si(reg.es_ciud_sede = true) entonces
                 cont_habi:= cont_habi + reg.cant_habitacion;
             finsi
-
+            to_cadena:=to_cadena+ reg.cant_habitacion;
             leer(archi,reg);
         finMientas
         corte_cadena();
