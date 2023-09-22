@@ -47,30 +47,27 @@ accion parcial1 es
                 transfomar();
                 avz(sec,v1);
                 
-                cont_reservas:= cont_reservas + 1;
-                si ( tipo_Reserva = v1) entonces
-                    Mientras(v1<> "%") hacer
-                        avz(sec,v1);
-                    finMientas
-                    avz(sec,v1);
+                si(tipo_Reserva = v1) entonces
+                    bandera:=true;
+                finsi
 
-                    para i:= 1 hasta 3 hacer
-                        Esc(sal,v1); 
+                Mientras(v1<> "%") hacer
+                    avz(sec,v1);
+                finMientas
+                avz(sec,v1);
+
+                Mientras ( v <> "_") hacer
+                    cont_reservas:= cont_reservas + 1;
+                    para i:= 1 hasta 3 hacer 
+                        si(banera)entonces
+                            Esc(sal,v1); 
+                        finsi
                         avz(sec,v1); 
                     finapara
-                    avz()
-                    Esc(sal,"@");
-                sino
-                    Mientras(v1<> "%") hacer
-                        avz(sec,v1);
-                    finMientas
-                    avz(sec,v1);
-
-                    para i:= 1 hasta  hacer
-                        avz(sec,v1);
-                    finapara
-                finsi
+                FinMientas
+                avz(sec,v1);
             finMientas
+            Esc(sal,"@"); 
             porcentaje:= (cont_reservas*100)/nro;
             Esc("La cantidad total de reservas es: "cont_reservas);
             Esc("El porcentaje de ocupacion es: ", porcentaje);

@@ -40,21 +40,21 @@ accion parcial1.2 es
                     avz(sec,v1);
                 finMientas
                 avz(sec,v1);
-
-                si( v1 = zona) es
-                    bandera=true;
-                finsi
-                
-                cant_reserva:= cant_reserva + 1;
-                para i:= 1  hasta 3 hacer 
-                    si(bandera) entonces
+            
+                Mientras ( v <> "-") hacer
+                    cant_reserva:= cant_reserva + 1;
+                    si( v1 = zona) es
                         cont_reserva:= cont_reserva + 1;
                     finsi
-                    avz(sec,v1);
-                finapara
 
-                Esc(sal,cant_reserva);
+                    para i:= 1  hasta 3 hacer 
+                        avz(sec,v1); 
+                    finapara
+
+                finMientas
+                avz(sec,v1);
             finMientas
+            Esc(sal,cant_reserva);
             Esc("La cantida de reversa del tipo E", cant_E);
             Esc("La cantida de reversa del tipo P", cant_P);
             Esc("La cantida de reversa del tipo Y", cant_Y);

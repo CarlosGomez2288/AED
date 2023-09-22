@@ -1,0 +1,112 @@
+accion recu es
+    ambiente
+        s_stock, s_ventas,sal:secuencias de caracteres;
+        v_stock,v_ventas: caracter;
+        dato,uni,cent,dec,sum1,sum2,uni_2,cent_2,cont_D,cont_S:entero;
+
+        funcion  convertir(v:caracter):Entero
+            segun (v) hacer
+                ="1":convertir:=1;
+                ="2":convertir:=2;
+                ="3":convertir:=3;
+                ="4":convertir:=4;
+                ="5":convertir:=5;
+                ="6":convertir:=6;
+                ="7":convertir:=7;
+                ="8":convertir:=8;
+                ="9":convertir:=9;
+                ="0":convertir:=0;
+            finsegun
+        finfuncion
+        
+        procedimiento transfor_tres() es
+            uni:= convertir(v) * 100;
+            avz(s_stock,v_stock);
+            cent:= convertir(v)*10;
+            avz(s_stock,v_stock);
+            dec:=convertir(v);
+            sum1:= (uni+cent+dec);
+            avz(s_stock,v_stock);
+        finProcedimiento
+
+        procedimiento transfor_dos() es
+            uni_2:= convertir(v) * 10;
+            avz(s_ventas,v_ventas);
+            cent_2:= convertir(v);
+            sum2:= (uni+cent);
+            avz(s_ventas,v_ventas);
+        finProcedimiento
+
+    proceso
+        arr(s_stock) arr(s_ventas);
+        avz(v_ventas); avz(v_stock);
+        crear(sal):
+
+         Esc("ingresar un mes");
+         leer(dato)
+
+        Mientras NFDS(s_stock) hacer
+            bandera_copi:= false;
+            bandera_M:= false;
+            cont_D:= 0; cont_S:=0;
+
+            Mientras ( v_stock <> "&") hacer
+
+                para i:= 1 hasta 6 hacer
+                    avz(s_stock,v_stock);
+                finpara
+                
+                transfor_tres();
+
+                Mientras ( v_ventas <> "#")hacer
+                    avz(s_ventas,v_stock);
+                    avz(s_ventas,v_stock);
+
+                    transfor_dos();
+                    
+                    si(sum2 = dato ) entonces
+                        bandera_M:= true;
+                    finsi
+
+                    avz(s_ventas,v_ventas);
+                    resg_en:= v_ventas;
+                    avz(s_ventas,v_ventas);
+
+                    transfor_dos();
+
+                    si( resg_en = "s") entonces
+                        cont_S:= cont_S + sum2;
+                    sino
+                        cont_D:= cont_D + sum2
+                    finsi
+                finmientras
+                
+                si((sum1-cont_S = 0)) entonces
+                    bandera_copi:=true;
+                finsi
+
+                Mientras( v_stock <> "&" ) hacer
+                    si( bandera_M o bandera_copi ) entonces
+                        si(bandera_M) entonces
+                            Esc(v_stock);
+                        finsi
+
+                        si(bandera_copi) entonces
+                            Esc(sal,v_stock);
+                        finsi
+                    finsi
+                    avz(s_stock,v_stock)
+                finmientras
+                                 
+            finmientras
+                si(bandera_M) entonces
+                    Esc("cantidad unid entregadas en suc":cont_S);
+                    Esc("cantidad unid entregadas en Domi":cont_D);
+                finsi
+            avz(s_stock,v_stock);
+            avz(s_stock,v_stock);
+        finmientras
+        cerrar(s_stock);
+        cerrar(s_ventas);
+        cerrar(sal);
+finaccion
